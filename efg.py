@@ -6,7 +6,7 @@ import copy
 
 
 # FBeM Class
-class FBeM:
+class EFGClassifier:
     def __init__(self, n: int = 2):
         """
         Initialization of the object
@@ -46,7 +46,7 @@ class FBeM:
         self.deleted_granules = 0
         self.file = open("log.txt", "w")
 
-    def create_new_granule(self, index, x, y):
+    def __create_new_granule(self, index, x, y):
         """
         Create new granule
         :param index:
@@ -98,7 +98,7 @@ class FBeM:
         """
         """ /Debugging """
 
-    def create_check_imaginary_granule(self, granule1, granule2):
+    def __create_check_imaginary_granule(self, granule1, granule2):
         """
         Create new imaginary granule as a junction of two granules
         And check the possibility of this granule to become real
@@ -186,7 +186,7 @@ class FBeM:
             self.ys.append(y[0])
 
             """ create new granule anyways """
-            self.create_new_granule(self.c, x, y)
+            self.__create_new_granule(self.c, x, y)
 
             self.P.append(round(np.random.rand()))
             self.store_num_rules.insert(self.h, self.c)
@@ -355,7 +355,7 @@ class FBeM:
 
             """ Case 0: no granule fits x """
             if len(I) == 0:
-                self.create_new_granule(x=x, y=y, index=self.c)
+                self.__create_new_granule(x=x, y=y, index=self.c)
             else:
                 """
                 Adaptation of the most qualified granule
@@ -490,7 +490,7 @@ class FBeM:
                             ind1 = i1
                             ind2 = i2
 
-                res = self.create_check_imaginary_granule(granule1=gra1, granule2=gra2)
+                res = self.__create_check_imaginary_granule(granule1=gra1, granule2=gra2)
                 if res:
                     """ deleting granules is possible """
                     del self.granules[ind1]

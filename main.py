@@ -1,9 +1,10 @@
 import pandas as pd
+from graph_utils import *
 from sklearn.model_selection import train_test_split
 import numpy as np
 from timeit import default_timer as timer
 from river.metrics import Accuracy
-from FBeM import FBeM
+from efg import EFGClassifier
 
 n = 4
 
@@ -13,7 +14,7 @@ tempo_gasto = []
 
 for i in range(0, n):
 
-    fbi = FBeM()
+    fbi = EFGClassifier()
     acc_r = Accuracy()
     fbi.debug = True
     to_normalize = 0
