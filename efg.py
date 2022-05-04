@@ -46,6 +46,12 @@ class EFGClassifier:
         self.deleted_granules = 0
         self.file = open("log.txt", "w")
 
+        self.__classes = {}
+
+    @property
+    def numeric_class(self) -> dict:
+        return self.__classes
+
     def __create_new_granule(self, index, x, y):
         """
         Create new granule
@@ -173,13 +179,28 @@ class EFGClassifier:
 
         return become_real
 
-    def learn(self, x, y):
+    def learn_one(self, x, y):
         """
         Learn as x and y enters
         :param x: observations
         :param y: expected output
         :return:
         """
+        # fix compatibility with RiverML
+        x = list(x.values())
+
+        # converting text to int
+        if type(y) is not int:
+            if type(y) is bool:
+                y = int(y)
+            if y not in self.__classes:
+                self.__classes[y] = len(self.__classes)
+            y = self.__classes[y]
+
+        # since efgp was built to also perform multiple output,
+        # we need to transform y to an array
+        y = [y]
+
         # starting from scratch
         if self.h == 0:
 
@@ -374,7 +395,6 @@ class EFGClassifier:
                     I = I[S.index(max(S))]
                 else:
                     I = I[0]
-                print(f"{I}")
 
                 """ Adapting antecedent of granule I """
                 """ Debugging """
