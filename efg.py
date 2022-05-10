@@ -260,21 +260,25 @@ class EFGClassifier:
             """
             Incremental learning
             Test - y is not available yet
-            Check rules that can accommodate x
+            Check rules that can accommodate x and respective similarities
             """
             I = []
+            S = np.array([])
             for i in range(0, self.c):
                 J = 0
+                similarity = 0
                 for j in range(0, self.n):
+                    similarity += self.granules[i].input_granules[j].com_similarity(x=x[j])
                     if self.granules[i].input_granules[j].fits(xj=x[j], rho=self.rho):
                         J += 1
 
+                S = np.insert(S, i, 1 - ((1 / (4 * self.n)) * similarity))
                 if J == self.n:
                     """ granule i fits x! """
                     I.append(i)
 
             """ Check degree of similarity """
-            S = np.array([])
+            # S = np.array([])
             # for i in range(0, self.c):
             #    aux = 0
             #    for j in range(0, self.n):
@@ -285,10 +289,10 @@ class EFGClassifier:
             # I = [S.index(max(S))]
 
             # mesclar esse for ao de cima.
-            for i in range(self.c):
-                aux = sum([self.granules[i].input_granules[j].com_similarity(x=x[j]) for j in range(self.n)])
+            # for i in range(self.c):
+            #    aux = sum([self.granules[i].input_granules[j].com_similarity(x=x[j]) for j in range(self.n)])
 
-                S = np.insert(S, i, 1 - ((1 / (4 * self.n)) * aux))
+            #    S = np.insert(S, i, 1 - ((1 / (4 * self.n)) * aux))
 
             if len(I) == 0: I = [np.argmax(S)]
 
@@ -345,21 +349,22 @@ class EFGClassifier:
             """
             Train
             Calculate granular consequent
-            Check rules that accommodate x
-            """
-            """
-            stop = 0
-            if self.h == 24:
-                stop = 1
+            Check rules that accommodate x and similarities
             """
 
             I = []
+            S = np.array([])
             for i in range(0, self.c):
                 J = 0
                 K = 0
 
-                #
+                # optimization
+                if self.m == 1 and not self.granules[i].output_granules[0].fits(y=y[0]):
+                    continue
+
+                similarity = 0
                 for j in range(0, self.n):
+                    similarity += self.granules[i].input_granules[j].com_similarity(x=x[j])
                     """ xj inside j-th expanded region? """
                     if self.granules[i].input_granules[j].fits(xj=x[j], rho=self.rho):
                         J += 1
@@ -374,16 +379,19 @@ class EFGClassifier:
                 # print('---')
                 if J + K == self.n + self.m:
                     I.append(i)
+                    S = np.append(S, 1 - ((1 / (4 * self.n)) * similarity))
 
             """ Case 0: no granule fits x """
             if len(I) == 0:
                 self.__create_new_granule(x=x, y=y, index=self.c)
+                I.append(self.c - 1)
             else:
                 """
                 Adaptation of the most qualified granule
                 If more than one granule fits the observation
                 """
                 if len(I) >= 2:
+                    """
                     S = []
                     for i in range(0, len(I)):
                         aux = 0
@@ -391,9 +399,9 @@ class EFGClassifier:
                             aux += self.granules[I[i]].input_granules[j].com_similarity(x=x[j])
 
                         S.insert(I[i], 1 - ((1 / (4 * self.n)) * aux))
-
+                    """
                     # print(S)
-                    I = I[S.index(max(S))]
+                    I = I[np.argmax(S)]
                 else:
                     I = I[0]
 
@@ -491,7 +499,7 @@ class EFGClassifier:
             if self.c >= 3:
                 """
                 Calculating the similarity between granules
-                While choosing two closest granules acording to S
+                While choosing two closest granules according to S
                 """
                 S = np.zeros((self.c, self.c))
                 gra1 = []
@@ -543,9 +551,18 @@ class EFGClassifier:
         self.h += 1
 
         """ Check if support contraction is needed """
-        for i in range(0, self.c):
-            for j in range(0, self.n):
 
+        if self.c == 1:
+            I = [0]
+
+        if type(I) is int:
+            I = [I]
+
+        for i in I:
+            if i >= self.c:
+                continue
+
+            for j in range(0, self.n):
                 ig = self.granules[i].input_granules[j]
                 mp = self.granules[i].input_granules[j].midpoint()
 
