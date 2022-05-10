@@ -284,6 +284,7 @@ class EFGClassifier:
 
             # I = [S.index(max(S))]
 
+            # mesclar esse for ao de cima.
             for i in range(self.c):
                 aux = sum([self.granules[i].input_granules[j].com_similarity(x=x[j]) for j in range(self.n)])
 
