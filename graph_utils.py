@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 def get_color(x):
     if x == 0:
@@ -29,18 +29,17 @@ def plot_granules(fbem):
                 plt.plot(j[0], j[1], get_color_sigla(i.output_granules[0].coef) + '*')
             else:
                 plt.plot(j[0], j[1], 'k*')
-        width = i.input_granules[0].L - i.input_granules[0].l if i.input_granules[0].L - i.input_granules[0].l > 0 else i.input_granules[0].L - \
-                                                                                                    i.input_granules[
-                                                                                                        0].l  # + .1
-        height = i.input_granules[1].L - i.input_granules[1].l if i.input_granules[1].L - i.input_granules[1].l > 0 else i.input_granules[1].L - \
-                                                                                                     i.input_granules[
-                                                                                                         1].l  # + .1
+        width = i.input_granules[0].L - i.input_granules[0].l if i.input_granules[0].L - i.input_granules[0].l > 0 else \
+        i.input_granules[0].L - \
+        i.input_granules[
+            0].l  # + .1
+        height = i.input_granules[1].L - i.input_granules[1].l if i.input_granules[1].L - i.input_granules[1].l > 0 else \
+        i.input_granules[1].L - \
+        i.input_granules[
+            1].l  # + .1
         ax.add_patch(patches.Rectangle((i.input_granules[0].l, i.input_granules[1].l), width, height,
                                        color=get_color(i.output_granules[0].coef)))
     plt.show();
-
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
 def plot_singular_output(fbem_instance, expected_output):
@@ -106,6 +105,7 @@ def plot_rules_number(fbem_instance):
     axes.set_ylim([0, 30])
     plt.legend(loc=2)
 
+
 def plot_acc(fbem_instance):
     """
     Plot accuraccy
@@ -113,10 +113,11 @@ def plot_acc(fbem_instance):
     :return:
     """
     plt.figure()
-    plt.plot(fbem_instance.acc, 'r-', label="Accuracy")
+    plt.plot(fbem_instance.__acc, 'r-', label="Accuracy")
     axes = plt.gca()
     axes.set_ylim([0, 110])
     plt.legend(loc=2)
+
 
 def plot_rho_values(fbem_instance):
     """
@@ -168,9 +169,10 @@ def plot_granules_3d_space(fbem_instance, min=0, max=1, indices=[]):
         ax.add_collection3d(face1)
 
         ax.text(gran[0, 0], gran[0, 1], gran[0, 1], s="gamma " + str(i) + " - Y=" +
-                                                      str(fbem_instance.granules[i].output_granules[0].coef), color="black")
+                                                      str(fbem_instance.granules[i].output_granules[0].coef),
+                color="black")
 
-        #for x in granule.xs:
+        # for x in granule.xs:
         #    ax.scatter(x[0], x[1], granule.output_granules[0].p(x), c=colors[i])
 
     ax.set_xlabel('X1')
@@ -216,12 +218,14 @@ def plot_granule_3d_space(granule, ax, i=1):
 
     return ax
 
+
 def plot_show():
     """
     Plot all the graphs previously prepared
     :return:
     """
     plt.show()
+
 
 def create_3d_space():
     fig = plt.figure()

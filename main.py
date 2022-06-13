@@ -1,11 +1,10 @@
 import pandas as pd
 from graph_utils import *
-from sklearn.model_selection import train_test_split
 import numpy as np
-from timeit import default_timer as timer
 from river.metrics import Accuracy
 from river import stream
-from efg import EFGClassifier
+from fuzzy_granular import EFGClassifier
+
 
 n = 5
 
@@ -40,8 +39,9 @@ for i in range(0, n):
         if fbi.h == 0:
             fbi.n = len(x.values())
 
+        prediction = fbi.predict_one(x)
         fbi.learn_one(x=x, y=y)
-        acc_r.update(fbi.numeric_class[y], fbi.P[-1])
+        acc_r.update(fbi.numeric_class[y], prediction)
 
     tempo_gasto.append(timer() - agora)
     print(f"Tempo gasto {timer() - agora}")
@@ -64,8 +64,8 @@ for i in range(0, n):
     acc.append(acc_r.get() * 100)
     rules.append(np.mean(fbi.store_num_rules))
 
-print(fbi.wrong)
-print(fbi.right)
+# print(fbi.__wrong)
+# print(fbi.__right)
 print("Rules: " + str(rules))
 print("Acc: " + str(acc))
 print(f"Acc {acc_r.get() * 100}")
