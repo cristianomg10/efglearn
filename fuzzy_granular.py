@@ -50,7 +50,7 @@ class EFGClassifier:
         self.merged_granules = 0
         self.created_granules = 0
         self.deleted_granules = 0
-        self.file = open("log.txt", "w")
+        # self.file = open("log.txt", "w")
 
         self.__classes = {}
 
@@ -281,7 +281,7 @@ class EFGClassifier:
             # self.rmse.append(np.sqrt(sum_(power(sub(self.ys, self.P), 2))))
             # self.ndei.append(np.inf)
 
-            self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
+            # self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
 
             """
             # Avoiding division by 0
@@ -652,7 +652,7 @@ class EFGPredictor:
         self.merged_granules = 0
         self.created_granules = 0
         self.deleted_granules = 0
-        self.file = open("log.txt", "w")
+        # self.file = open("log.txt", "w")
 
     def __create_new_granule(self, index, x, y):
         """
@@ -868,7 +868,7 @@ class EFGPredictor:
             # self.rmse.append(np.sqrt(sum_(power(sub(self.ys, self.P), 2)) / (self.h + 1)))
             self.rmse.append(np.sqrt(sum_(power(sub(self.ys, self.P), 2))))
             self.ndei.append(np.inf)
-            self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
+            # self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
 
             """
             # Avoiding division by 0
@@ -935,7 +935,7 @@ class EFGPredictor:
             self.PLB.insert(self.h, min_u(granules=self.granules, indices=I, m=self.m))
             self.PUB.insert(self.h, max_U(granules=self.granules, indices=I, m=self.m))
 
-            self.file.write(str(self.h) + '\t' + str(self.P[self.h]) + '\t' + str(I) + '\n')
+            # self.file.write(str(self.h) + '\t' + str(self.P[self.h]) + '\t' + str(I) + '\n')
 
             """ P must belong to [PLB PUB] """
             if self.P[self.h] < self.PLB[self.h]:
@@ -1276,7 +1276,7 @@ class FBeM_MD:
         self.merged_granules = 0
         self.created_granules = 0
         self.deleted_granules = 0
-        self.file = open("log.txt", "w")
+        # self.file = open("log.txt", "w")
 
     def is_there_missing_data(self, x):
         """
@@ -1496,7 +1496,7 @@ class FBeM_MD:
 
             self.rmse.append(np.sqrt(np.sum((np.array(self.ys) - np.array(self.P)) ** div)))
             self.ndei.append(np.inf)
-            self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
+            # self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
 
             self.h += 1
             return
@@ -1515,7 +1515,7 @@ class FBeM_MD:
 
             self.rmse.append(np.sqrt(np.sum((np.array(self.ys) - np.array(self.P)) ** self.h)))
             self.ndei.append(np.inf)
-            self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
+            # self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
             self.h += 1
             return
 
@@ -1536,7 +1536,7 @@ class FBeM_MD:
             # self.rmse.append(np.sqrt(sum_(power(sub(self.ys, self.P), 2)) / (self.h + 1)))
             self.rmse.append(np.sqrt(np.sum((np.array(self.ys) - np.array(self.P)) ** 2)))
             self.ndei.append(np.inf)
-            self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
+            # self.file.write(str(self.h) + "\t" + str(self.P[self.h]) + "\t1\n")
 
             """
             # Avoiding division by 0
@@ -1675,7 +1675,7 @@ class FBeM_MD:
             self.PLB.insert(self.h, min_u(granules=self.granules, indices=I, m=self.m))
             self.PUB.insert(self.h, max_U(granules=self.granules, indices=I, m=self.m))
 
-            self.file.write(str(self.h) + '\t' + str(self.P[self.h]) + '\t' + str(I) + '\n')
+            # self.file.write(str(self.h) + '\t' + str(self.P[self.h]) + '\t' + str(I) + '\n')
 
             """ P must belong to [PLB PUB] """
             if self.P[self.h] < self.PLB[self.h]:
