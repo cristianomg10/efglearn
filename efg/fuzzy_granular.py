@@ -1,10 +1,9 @@
 import math
 
-from src.efg.granules.granule import Granule
-from src.efg.granules.input_granule import InputGranule
-from src.efg.granules.output_granule import OutputGranule
+from efg.granules.granule import Granule
+from efg.granules.input_granule import InputGranule
+from efg.granules.output_granule import OutputGranule
 import numpy as np
-from .utils import *
 
 
 # FBeM Class
