@@ -3,6 +3,9 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setuptools.setup(
     name="cristianomg10", # Replace with your username
     version="1.0.0",
@@ -12,6 +15,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/cristianomg10/efglearn/",
+    install_requires=required,
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
