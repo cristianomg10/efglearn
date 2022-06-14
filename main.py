@@ -1,13 +1,12 @@
 import pandas as pd
 from graph_utils import *
-from sklearn.model_selection import train_test_split
 import numpy as np
-from timeit import default_timer as timer
 from river.metrics import Accuracy
 from river import stream
-from efg import EFGClassifier
+from fuzzy_granular import EFGClassifier
 
-n = 4
+
+n = 5
 
 rules = []
 acc = []
@@ -34,13 +33,15 @@ for i in range(0, n):
 
     agora = timer()
     df = pd.read_csv('https://bit.ly/iris_ds', names=['petal_w', 'petal_l', 'sepal_w', 'sepal_l', 'class'])
+    df = df.sample(frac=1)
 
     for x, y in stream.iter_pandas(df.drop(columns=['class']), df["class"]):
         if fbi.h == 0:
             fbi.n = len(x.values())
 
+        prediction = fbi.predict_one(x)
         fbi.learn_one(x=x, y=y)
-        acc_r.update(fbi.numeric_class[y], fbi.P[-1])
+        acc_r.update(fbi.numeric_class[y], prediction)
 
     tempo_gasto.append(timer() - agora)
     print(f"Tempo gasto {timer() - agora}")
@@ -59,18 +60,18 @@ for i in range(0, n):
 
     fbi.file.close()
 
-    print("Final accuracy: ", fbi.acc[len(fbi.acc) - 1])
-    acc.append(fbi.acc[len(fbi.acc) - 1])
+    print("Final accuracy: ", acc_r.get() * 100)
+    acc.append(acc_r.get() * 100)
     rules.append(np.mean(fbi.store_num_rules))
 
-print(fbi.wrong)
-print(fbi.right)
+# print(fbi.__wrong)
+# print(fbi.__right)
 print("Rules: " + str(rules))
 print("Acc: " + str(acc))
-print(f"Acc {acc_r.get()}")
+print(f"Acc {acc_r.get() * 100}")
 print(f"Acc: {np.mean(acc)} +/- {np.std(acc)}")
 print(f"Tempo gasto {np.mean(tempo_gasto)} +/- {np.std(tempo_gasto)}")
-print(fbi.granules[0].output_granules[0].coef)
+#print(fbi.granules[0].output_granules[0].coef)
 
-# plot_granules(fbi)
+plot_granules(fbi)
 # len(fbi.granules)

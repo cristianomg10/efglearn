@@ -1,4 +1,5 @@
 from typing import Any
+import copy
 
 
 class Granule:
@@ -31,6 +32,8 @@ class Granule:
         Calculate least squares
         :return:
         """
+        from sklearn.linear_model import LinearRegression
+
         XX = []
         colOut = copy.deepcopy(self.ys)
         col = copy.deepcopy(self.xs)
@@ -43,11 +46,15 @@ class Granule:
         for k in range(0, len(self.output_granules)):
             # result = least_sqr(XX, colOut)
             # result = lstsqr_pinv(XX, colOut)
-            result = mldivide_matlab(XX, colOut)
+            # result = mldivide_matlab(XX, colOut)
             # result = mldivide(XX, colOut)
             # result = ls_nnls(XX, colOut)
             # result = solve_minnonzero(XX, colOut)
-            self.output_granules[k].coef = result
+
+            lr = LinearRegression()
+            lr.fit(XX, colOut)
+            result = lr.predict(XX)
+            self.output_granules[k].coef = lr.coef_
         # except Exception as e:
         #    print(str(e))
         #    pass
