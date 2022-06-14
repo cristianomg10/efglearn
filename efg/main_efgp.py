@@ -6,7 +6,7 @@ import numpy as np
 
 n = 12
 
-xls = pd.ExcelFile("../../datasets/DeathValleyAvg.xls")
+xls = pd.ExcelFile("../datasets/DeathValleyAvg.xls")
 sheetx = xls.parse(0)
 
 # Preparing x

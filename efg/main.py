@@ -1,5 +1,5 @@
 import pandas as pd
-from src.efg.utils.graph_utils import *
+from efg.utils.graph_utils import *
 import numpy as np
 from river.metrics import Accuracy
 from river import stream
