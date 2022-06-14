@@ -2,6 +2,7 @@ import pandas as pd
 from fuzzy_granular import EFGPredictor as FBeM
 from river import stream
 import matplotlib.pyplot as plt
+import numpy as np
 
 n = 12
 
