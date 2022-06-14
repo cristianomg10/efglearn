@@ -1,17 +1,13 @@
+import math
+
+from .granule import Granule
 from .input_granule import InputGranule
 from .output_granule import OutputGranule
-from .granule import Granule
-import numpy as np
-import copy
-import math
 from .utils import *
 
 
 # FBeM Class
 class EFGClassifier:
-    from .input_granule import InputGranule
-    from .output_granule import OutputGranule
-    from .granule import Granule
 
     def __init__(self, n: int = 2, rho: float = .7, hr: int = 48, alpha: int = 0, eta: float = .5) -> object:
         """
@@ -625,9 +621,6 @@ class EFGClassifier:
 
 
 class EFGPredictor:
-    from .input_granule import InputGranule
-    from .output_granule import OutputGranule
-    from .granule import Granule
     def __init__(self, n: int = 2, rho: float = .7, hr: int = 48, alpha: int = 0, eta: float = .5):
         """
         Initialization of the object
@@ -766,7 +759,8 @@ class EFGPredictor:
             g.ys = granule1.ys + granule2.ys
             g.act = 0
 
-            new_o_granule.coef = [(x + y) / 2 for x, y in zip(granule1.output_granules[k].coef, granule2.output_granules[k].coef)]
+            new_o_granule.coef = [(x + y) / 2 for x, y in
+                                  zip(granule1.output_granules[k].coef, granule2.output_granules[k].coef)]
 
             g.output_granules.insert(k, new_o_granule)
 
