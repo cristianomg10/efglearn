@@ -3,6 +3,7 @@ import math
 from src.efg.granules.granule import Granule
 from src.efg.granules.input_granule import InputGranule
 from src.efg.granules.output_granule import OutputGranule
+import numpy as np
 from .utils import *
 
 
