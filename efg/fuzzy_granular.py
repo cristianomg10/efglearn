@@ -3,6 +3,7 @@ import math
 from efg.granules.granule import Granule
 from efg.granules.input_granule import InputGranule
 from efg.granules.output_granule import OutputGranule
+from efg.utils.utils import sum_, sum_specific, min_u, max_U, power, sub, sum_dot
 import numpy as np
 
 
