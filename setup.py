@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
     required = [i for i in f.read().splitlines() if len(i) > 0]
 
 setuptools.setup(
-    name="cristianomg10", # Replace with your username
+    name="efg",  # Replace with your username
     version="1.0.0",
     author="cristianomg10",
     author_email="cristianooo@gmail.com",
