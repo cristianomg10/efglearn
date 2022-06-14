@@ -1,8 +1,8 @@
 import math
 
-from .granule import Granule
-from .input_granule import InputGranule
-from .output_granule import OutputGranule
+from src.efg.granules.granule import Granule
+from src.efg.granules.input_granule import InputGranule
+from src.efg.granules.output_granule import OutputGranule
 from .utils import *
 
 

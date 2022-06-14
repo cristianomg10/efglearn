@@ -1,7 +1,5 @@
 import pandas as pd
 from fuzzy_granular import EFGPredictor as FBeM
-from graph_utils import *
-from utils import *
 from river import stream
 import matplotlib.pyplot as plt
 
