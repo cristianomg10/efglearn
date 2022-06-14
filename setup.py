@@ -4,10 +4,10 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="<template-package-username>", # Replace with your username
+    name="cristianomg10", # Replace with your username
     version="1.0.0",
-    author="<authorname>",
-    author_email="<authorname@templatepackage.com>",
+    author="cristianomg10",
+    author_email="cristianooo@gmail.com",
     description="<Template Setup.py package>",
     long_description=long_description,
     long_description_content_type="text/markdown",
