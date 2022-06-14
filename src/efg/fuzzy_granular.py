@@ -1,10 +1,10 @@
-from input_granule import InputGranule
-from output_granule import OutputGranule
-from granule import Granule
+from .input_granule import InputGranule
+from .output_granule import OutputGranule
+from .granule import Granule
 import numpy as np
 import copy
 import math
-from utils import *
+from .utils import *
 
 
 # FBeM Class
