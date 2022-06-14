@@ -1,14 +1,18 @@
-from input_granule import InputGranule
-from output_granule import OutputGranule
-from granule import Granule
+from .input_granule import InputGranule
+from .output_granule import OutputGranule
+from .granule import Granule
 import numpy as np
 import copy
 import math
-from utils import *
+from .utils import *
 
 
 # FBeM Class
 class EFGClassifier:
+    from .input_granule import InputGranule
+    from .output_granule import OutputGranule
+    from .granule import Granule
+
     def __init__(self, n: int = 2, rho: float = .7, hr: int = 48, alpha: int = 0, eta: float = .5) -> object:
         """
         Initialization of the object
@@ -621,6 +625,9 @@ class EFGClassifier:
 
 
 class EFGPredictor:
+    from .input_granule import InputGranule
+    from .output_granule import OutputGranule
+    from .granule import Granule
     def __init__(self, n: int = 2, rho: float = .7, hr: int = 48, alpha: int = 0, eta: float = .5):
         """
         Initialization of the object
